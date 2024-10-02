@@ -1,3 +1,5 @@
+*Run this on https://gen-ai-hackathon-dazzelers.streamlit.app/ *
+
 AI-Powered Quality Control for Manufacturing
 This project is a Streamlit web application designed to assist companies in optimizing their quality control processes using AI. The application offers features for customizing quality standards, real-time defect detection, predictive maintenance, blueprint analysis, and company registration.
 
