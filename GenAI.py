@@ -1,42 +1,15 @@
 import streamlit as st
-st.subheader("Register Your Company")
-
-with st.form("company_form"):
-    company_name = st.text_input("Company Name")
-    sector = st.selectbox("Sector", ["Textile", "Automobile", "Electronics", "Pharmaceutical", "Others"])
-    website = st.text_input("Company Website")
-    contact_email = st.text_input("Contact Email")
-
-    submitted = st.form_submit_button("Register")
-
-if submitted:
-    st.write(f"Company '{company_name}' has been registered successfully!")
-
-company_data = []
-
-if submitted:
-    company_data.append({
-        "name": company_name,
-        "sector": sector,
-        "website": website,
-        "contact_email": contact_email
-    })
-    st.write("Thank you for registering! We will contact you soon.")
-
-import streamlit as st
 import random
-from transformers import T5ForConditionalGeneration, T5Tokenizer
 
-# T5 Model initialization
-model_name = "google/flan-t5-base"
-model = T5ForConditionalGeneration.from_pretrained(model_name)
-tokenizer = T5Tokenizer.from_pretrained(model_name)
-
-# Function for generating responses using T5 Flan
+# Simplified function for generating responses
 def generate_response(input_text):
-    inputs = tokenizer(input_text, return_tensors="pt")
-    outputs = model.generate(inputs['input_ids'], max_length=50, num_beams=5)
-    return tokenizer.decode(outputs[0], skip_special_tokens=True)
+    responses = {
+        "Textile": "Ensure fabric strength, color fastness, and seam quality.",
+        "Automobile": "Check paint finish, panel alignment, and safety features.",
+        "Electronics": "Verify circuit integrity, component soldering, and functional testing."
+    }
+    industry = input_text.split()[3]  # Extract industry from input text
+    return responses.get(industry, "Set industry-specific quality standards.")
 
 # Streamlit UI
 st.title("AI-Powered Quality Control for Manufacturing")
@@ -87,6 +60,8 @@ if uploaded_file is not None:
 
 # Feature 4: Register Company Webpage
 st.subheader("Register Your Company")
+company_data = []
+
 with st.form("company_form"):
     company_name = st.text_input("Company Name")
     sector = st.selectbox("Sector", ["Textile", "Automobile", "Electronics", "Pharmaceutical", "Others"])
@@ -103,4 +78,4 @@ if submitted:
         "contact_email": contact_email
     })
     st.write(f"Company '{company_name}' has been registered successfully!")
-
+    st.write("Thank you for registering! We will contact you soon.")
